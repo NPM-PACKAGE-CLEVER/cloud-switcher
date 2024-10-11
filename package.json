@@ -1,0 +1,31 @@
+{
+  "name": "cloud-switcher",
+  "version": "1.0.0",
+  "description": "A CLI tool for managing cloud provider credentials with multi-cloud support and encryption.",
+  "main": "index.js",
+  "bin": {
+    "cloud": "./bin/run.js"
+  },
+  "scripts": {
+    "postinstall": "node ./scripts/setup-alias.js"
+  },
+  "oclif": {
+    "commands": "./src/commands",
+    "defaultCommand": "help"
+  },
+  "keywords": ["cli", "cloud", "AWS", "GCP", "Azure", "credentials"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "@oclif/core": "^4.0.27",
+    "@oclif/plugin-help": "^6.2.14",
+    "pretty-error": "^4.0.0"
+  },
+  "docs": {
+    "title": "Cloud Switching CLI",
+    "description": "A command-line tool for managing multiple cloud provider credentials efficiently with support for AWS, GCP, and Azure.",
+    "author": "Your Name",
+    "date": "2024-10-11",
+    "version": "1.0.0"
+  }
+}

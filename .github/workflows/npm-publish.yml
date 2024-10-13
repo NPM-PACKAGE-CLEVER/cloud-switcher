@@ -2,8 +2,8 @@ name: Publish to NPM
 
 on:
   push:
-    tags:
-      - 'v*.*.*'  # This will trigger the workflow when a new version tag (e.g., v1.0.0) is pushed.
+    branches:
+      - master
 
 jobs:
   publish:

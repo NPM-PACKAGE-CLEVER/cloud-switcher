@@ -32,6 +32,17 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: node src/utils/bump-version.js
 
+    - name: Commit and push version bump
+      if: github.ref == 'refs/heads/master'
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      run: |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "GitHub Actions Bot"
+        git add package.json
+        git commit -m "chore: bump version to $(node -p \"require('./package.json').version\")"
+        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git
+
     - name: Publish to NPM
       if: github.ref == 'refs/heads/master'
       run: npm publish

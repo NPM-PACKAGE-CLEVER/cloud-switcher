@@ -32,11 +32,11 @@ jobs:
 
     - name: Tag release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git config --global user.name "GitHub Actions Bot"
         git fetch --tags
         PACKAGE_VERSION=$(node -p "require('./package.json').version")
         git tag -a "v${PACKAGE_VERSION}" -m "Release version ${PACKAGE_VERSION}"
-        git push origin --tags
+        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git --tags

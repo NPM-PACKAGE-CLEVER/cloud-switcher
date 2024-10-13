@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master  # Change if your branch name differs
+      - '**'
 
 jobs:
   publish:
@@ -28,12 +29,15 @@ jobs:
       run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
     - name: Publish to NPM
+      if: github.ref == 'refs/heads/master'
       run: npm publish
 
     - name: Bump version
+      if: github.ref == 'refs/heads/master'
       run: node src/utils/bump-version.js
 
     - name: Tag release
+      if: github.ref == 'refs/heads/master'
       env:
         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |

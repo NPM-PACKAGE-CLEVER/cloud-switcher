@@ -8,9 +8,9 @@ function getShellConfigFile() {
 
   if (shell?.includes('bash')) {
     return path.join(os.homedir(), '.bashrc');
-  } else if (shell.includes('zsh')) {
+  } else if (shell?.includes('zsh')) {
     return path.join(os.homedir(), '.zshrc');
-  } else if (shell.includes('fish')) {
+  } else if (shell?.includes('fish')) {
     return path.join(os.homedir(), '.config', 'fish', 'config.fish');
   }
 

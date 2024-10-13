@@ -3,7 +3,7 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - master
+      - master  # Change if your branch name differs
 
 jobs:
   publish:
@@ -23,16 +23,14 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    # - name: Run tests
-    #   run: npm test
+    # Set up NPM authentication
+    - name: Configure npm for publishing
+      run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
     - name: Publish to NPM
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npm publish
 
     - name: Tag release
-      if: github.ref == 'refs/tags/' && github.event_name == 'push'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |

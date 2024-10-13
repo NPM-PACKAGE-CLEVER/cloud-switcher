@@ -64,7 +64,6 @@ coverage/
 .yarnrc.yml
 
 # Ignore lockfiles
-package-lock.json
 yarn.lock
 
 # AWS configuration

@@ -3,8 +3,8 @@ name: Publish to NPM
 on:
   push:
     branches:
-      - master  # Change if your branch name differs
-      - '**'
+      - master # Change if your branch name differs
+      - "**"
 
 jobs:
   publish:
@@ -12,49 +12,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'  # Specify your Node.js version
-        cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18" # Specify your Node.js version
+          cache: "npm"
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    # Set up NPM authentication
-    - name: Configure npm for publishing
-      run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+      # Set up NPM authentication
+      - name: Configure npm for publishing
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-    - name: Bump version
-      if: github.ref == 'refs/heads/master'
-      run: node src/utils/bump-version.js
+      - name: Bump version
+        if: github.ref == 'refs/heads/master'
+        run: node src/utils/bump-version.js
 
-    - name: Commit and push version bump
-      if: github.ref == 'refs/heads/master'
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      run: |
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "GitHub Actions Bot"
-        git add package.json
-        git commit -m "chore: bump version to $(node -p \"require('./package.json').version\")"
-        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git
+      - name: Commit and push version bump
+        if: github.ref == 'refs/heads/master'
+        env:
+         PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+         git config --global user.name "GitHub Actions Bot"
+         git add package.json
+         VERSION=$(node -p "require('./package.json').version")
+         git commit -m "chore: bump version to ${VERSION}"
+         git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git
 
-    - name: Publish to NPM
-      if: github.ref == 'refs/heads/master'
-      run: npm publish
+      - name: Publish to NPM
+        if: github.ref == 'refs/heads/master'
+        run: npm publish
 
-    - name: Tag release
-      if: github.ref == 'refs/heads/master'
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      run: |
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git config --global user.name "GitHub Actions Bot"
-        git fetch --tags
-        PACKAGE_VERSION=$(node -p "require('./package.json').version")
-        git tag -a "v${PACKAGE_VERSION}" -m "Release version ${PACKAGE_VERSION}"
-        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git --tags
+      - name: Tag release
+        if: github.ref == 'refs/heads/master'
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+         git config --global user.name "GitHub Actions Bot"
+         git fetch --tags
+         PACKAGE_VERSION=$(node -p "require('./package.json').version")
+         git tag -a "v${PACKAGE_VERSION}" -m "Release version ${PACKAGE_VERSION}"
+         git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/NPM-PACKAGE-CLEVER/cloud-switcher.git --tags

@@ -18,7 +18,7 @@ author: Clever Eziogor
 ## Installation
 
 - Make sure you have Node.js (version 14 or higher) and npm installed on your system. Then, install the CLI globally:
-`npm install -g cloud-switching`
+`npm install -g cloud-switcher`
 
 ### Post-Installation Setup
 - The package automatically sets up an alias cloud for easier use. It supports the following shells:

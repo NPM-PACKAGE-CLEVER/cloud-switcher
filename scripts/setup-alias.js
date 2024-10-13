@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 function getShellConfigFile() {
   const shell = process.env.SHELL;
 
-  if (shell.includes('bash')) {
+  if (shell?.includes('bash')) {
     return path.join(os.homedir(), '.bashrc');
   } else if (shell.includes('zsh')) {
     return path.join(os.homedir(), '.zshrc');

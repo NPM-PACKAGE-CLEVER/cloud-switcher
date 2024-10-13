@@ -28,13 +28,13 @@ jobs:
     - name: Configure npm for publishing
       run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-    - name: Publish to NPM
-      if: github.ref == 'refs/heads/master'
-      run: npm publish
-
     - name: Bump version
       if: github.ref == 'refs/heads/master'
       run: node src/utils/bump-version.js
+
+    - name: Publish to NPM
+      if: github.ref == 'refs/heads/master'
+      run: npm publish
 
     - name: Tag release
       if: github.ref == 'refs/heads/master'

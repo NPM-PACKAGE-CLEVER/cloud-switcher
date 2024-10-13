@@ -23,15 +23,15 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Bump version
-      run: node src/utils/bump-version.js
-
     # Set up NPM authentication
     - name: Configure npm for publishing
       run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
     - name: Publish to NPM
       run: npm publish
+
+    - name: Bump version
+      run: node src/utils/bump-version.js
 
     - name: Tag release
       env:

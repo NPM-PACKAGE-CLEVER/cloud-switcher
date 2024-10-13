@@ -1,6 +1,6 @@
 {
   "name": "cloud-switcher",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A CLI tool for managing cloud provider credentials with multi-cloud support and encryption.",
   "main": "index.js",
   "bin": {
@@ -13,7 +13,14 @@
     "commands": "./src/commands",
     "defaultCommand": "help"
   },
-  "keywords": ["cli", "cloud", "AWS", "GCP", "Azure", "credentials"],
+  "keywords": [
+    "cli",
+    "cloud",
+    "AWS",
+    "GCP",
+    "Azure",
+    "credentials"
+  ],
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {

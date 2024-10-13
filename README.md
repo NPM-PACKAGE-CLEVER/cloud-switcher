@@ -4,11 +4,10 @@ author: Clever Eziogor
 ---
 # Cloud Switching CLI
 
-- Cloud Switching is a command-line interface (CLI) tool designed to manage multiple cloud provider credentials efficiently. It supports AWS, GCP, and Azure accounts, allowing you to switch between them using a single command line. The tool provides encryption for credential storage, real-time updates, and shell aliases for ease of use.
+- Cloud Switching is a command-line interface (CLI) tool designed to manage multiple cloud provider credentials efficiently. It supports AWS accounts, allowing you to switch between different accounts using a single command line. The tool provides encryption for credential storage, real-time updates, and shell aliases for ease of use.
 
 ## Features
 
-- Multi-Cloud Support: Interact with AWS, GCP, and Azure accounts using the same CLI.
 - AWS Context Switching: Manage multiple AWS organizations and accounts, switching context seamlessly.
 - Encryption: Secure your credentials using AES-256-CTR encryption.
 - Shell Alias Setup: Automatic setup for the cloud alias, making it easy to use commands from your terminal.
@@ -37,17 +36,27 @@ author: Clever Eziogor
 
 `cloud --help` Lists all available commands and their descriptions.
 
-- Switch AWS Context:
-
-`cloud --switchOrg org-name-2 --account dev` Switches AWS credentials to the specified organization and account.
+`cloud --addOrg --orgName clever-test`
 
 - Set Organization as Active:
 
-`cloud --setActive --orgName org-name-2` Marks an AWS organization as active.
+`cloud --setActive --orgName clever-test` Marks an AWS organization as active.
 
 - List Organizations:
 
 `cloud --listOrgs` Lists all organizations in your configuration file, showing active and inactive statuses.
+
+- List Accounts:
+
+`cloud --listAccounts`
+
+- Add Accounts
+
+`cloud --addAccount --name test --accessKey AYGHBN --secretKey AWSDER --region` Add a new AWS account to the active organization
+
+- Switch AWS Context:
+
+`cloud --switchOrg clever-test --account test` Switches AWS credentials to the specified organization and account.
 
 > Encryption: This is managed internally. Credentials are stored securely using AES-256-CTR encryption.
 
